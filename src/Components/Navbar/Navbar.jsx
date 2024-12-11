@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 // import play1 from "../../assets/img/logo/logo.svg";
 import { FaAngleUp, FaBars, FaTimes } from "react-icons/fa";
 import Theme from "../Theme/Theme";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 // go to the sections through the links variable exported start
 export let aboutRef = "";
 export let pricingRef = "";
@@ -12,6 +12,12 @@ export let contactRef = "";
 // go to the sections through the links variable exported end
 
 function Navbar() {
+  const location = useLocation();
+  useEffect(() => {
+    setShowPages(false);
+    setShowDropdown(false);
+  }, [location]);
+
   // ref for sections imported start
   aboutRef = useRef(null);
   pricingRef = useRef(null);
@@ -108,7 +114,7 @@ function Navbar() {
         <div className="hidden lg:block">
           <ul className={`flex gap-7 font-semibold mt-7 ${color}`}>
             <li className="hover:text-gray-500 dark:text-white cursor-pointer">
-              Home
+              <NavLink to="/">Home</NavLink>
             </li>
             <li
               onClick={() => scrollToSection(aboutRef)}
@@ -228,7 +234,10 @@ function Navbar() {
             {showDropdown ? (
               <div className="relative right-52 top-5 lg:hidden">
                 <ul className="flex flex-col gap-5 items-start px-8 py-5 rounded-lg font-semibold absolute text-gray-600 text-sm dark:bg-[#1f2a37] dark:text-white bg-white w-52">
-                  <li className="hover:text-blue-600 cursor-pointer">Home</li>
+                  <li className="hover:text-blue-600 cursor-pointer">
+                    {" "}
+                    <NavLink to="/">Home</NavLink>
+                  </li>
                   <li className="hover:text-blue-600 cursor-pointer">About</li>
                   <li className="hover:text-blue-600 cursor-pointer">
                     Pricing

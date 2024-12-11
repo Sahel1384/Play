@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { FaAngleUp, FaBars, FaTimes } from "react-icons/fa";
 import Theme from "../Theme/Theme";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 function NavbarForPages() {
+  const location = useLocation();
+
   // go to top btn show start
   const [goTop, setGoTop] = useState(false);
   useEffect(() => {
@@ -38,6 +40,11 @@ function NavbarForPages() {
     setShowDropdown(!showDropdown);
   };
 
+  useEffect(() => {
+    setShowPages(false);
+    setShowDropdown(false);
+  }, [location]);
+
   return (
     <>
       {/* {navbar && ( */}
@@ -52,7 +59,7 @@ function NavbarForPages() {
         <div className="hidden lg:block">
           <ul className={`flex gap-7 font-semibold mt-7 `}>
             <li className="hover:text-gray-500 dark:text-white cursor-pointer">
-              Home
+              <NavLink to="/">Home</NavLink>
             </li>
             <li className="hover:text-gray-500 dark:text-white cursor-pointer">
               About
@@ -148,7 +155,9 @@ function NavbarForPages() {
             {showDropdown ? (
               <div className="relative right-52 top-5 lg:hidden">
                 <ul className="flex flex-col gap-5 items-start px-8 py-5 rounded-lg font-semibold absolute text-gray-600 text-sm dark:bg-[#1f2a37] dark:text-white bg-white w-52">
-                  <li className="hover:text-blue-600 cursor-pointer">Home</li>
+                  <li className="hover:text-blue-600 cursor-pointer">
+                    <NavLink to="/">Home</NavLink>
+                  </li>
                   <li className="hover:text-blue-600 cursor-pointer">About</li>
                   <li className="hover:text-blue-600 cursor-pointer">
                     Pricing
